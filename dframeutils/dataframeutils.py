@@ -6,7 +6,7 @@ import seaborn as sns
 
 
 __all__ = ["DataTypeConverter", "NaCount",
-           "NaPlot", "ExtremeObservations", "ListFiles"]
+           "NaPlot", "ExtremeObservations", "PrintAll"]
 
 
 def DataTypeConverter(features, df, data_type):
@@ -158,3 +158,26 @@ def NaPlot(df, font_scale=3, figsize=(24, 16)):
     ax.set(title='Percentage NaN by Feature', ylabel='Percentage of Missing')
     plt.subplots_adjust(top=0.95, bottom=0.3)
     plt.show()
+
+
+def PrintAll(df, max_rows=999, max_colwidth=200):
+    """prints the entire dataframe (up to max_rows) and returns to original context
+
+    Parameters:
+    ___________
+
+    df:
+        Dataframe
+    max_rows:
+        maximum number of rows to be printed (default: 999)(int)
+    max_colwidth:
+        maximum number of columns to be printed (default: 200)(int)
+
+    Returns:
+    _______
+
+        Dataframe
+
+    """
+    with pd.option_context('display.max_rows', max_rows, 'display.max_colwidth', max_colwidth):
+        print(df)
