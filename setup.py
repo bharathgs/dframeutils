@@ -8,7 +8,7 @@ with open('dframeutils/__init__.py', 'r') as f:
             version = line.strip().split('=')[1].strip(' \'"')
             break
     else:
-        version = '0.0.2'
+        version = '0.0.2rc1'
 
 with open('README.md', 'r', encoding='utf-8') as f:
     readme = f.read()
@@ -16,7 +16,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
 REQUIRES = []
 
 setup(
-    name='dframeutils',
+    name='dframe-utils',
     version=version,
     description='simple utility tools for dataframes in Python',
     long_description=readme,

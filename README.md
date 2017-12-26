@@ -16,7 +16,7 @@ wheel and is available on Linux/macOS and Windows and supports
 Python 3.6+.
 
 ```bash
-$ pip install dframeutils
+$ pip install dframe_utils
 ```
 
 ## License
