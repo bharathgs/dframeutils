@@ -1,0 +1,17 @@
+[metadata]
+name = 'dframeutils'
+version = '0.0.1'
+description = 'simple utility tools for dataframes in Python'
+author = 'Bharath G.S'
+author_email = 'royalkingpin@gmail.com'
+license = 'MIT'
+url = 'https://github.com/bharathgs/dframeutils'
+
+[requires]
+python_version = ['3.6']
+
+[build-system]
+requires = ['setuptools', 'wheel']
+
+[tool.hatch.commands]
+prerelease = 'hatch build'
