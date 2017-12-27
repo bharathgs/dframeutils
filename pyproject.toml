@@ -1,6 +1,6 @@
 [metadata]
 name = 'dframeutils'
-version = '0.0.2rc1'
+version = '0.0.2rc2'
 description = 'simple utility tools for dataframes in Python'
 author = 'Bharath G.S'
 author_email = 'royalkingpin@gmail.com'
