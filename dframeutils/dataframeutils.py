@@ -3,13 +3,16 @@ import numpy as np
 from pandas import DataFrame, Series
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy.stats.mstats import mode
+import warnings
+warnings.simplefilter("ignore", RuntimeWarning)
 
 
-__all__ = ["DataTypeConverter", "NaCount",
-           "NaPlot", "ExtremeObservations", "PrintAll"]
+__all__ = ["data_type_converter", "na_count",
+           "na_plot", "extreme_observations", "print_all", "num_summary"]
 
 
-def DataTypeConverter(features, df, data_type):
+def data_type_converter(features, df, data_type):
     """
     converts multiple columns from one dtype to other in a pandas dataframe
 
@@ -42,7 +45,7 @@ def DataTypeConverter(features, df, data_type):
     return df
 
 
-def ExtremeObservations(df, feature, n=3, n_largest=True, n_smallest=True):
+def extreme_observations(df, feature, n=3, n_largest=True, n_smallest=True):
     """
     Returns the n-largest or/and n-smallest observations in a dataframe
     based on a particular feature passed along.
@@ -84,7 +87,7 @@ def ExtremeObservations(df, feature, n=3, n_largest=True, n_smallest=True):
     return pd.concat([df.iloc[si, :], df.iloc[li, :]])
 
 
-def NaCount(df):
+def na_count(df):
     """
     Returns the information about the percentage of missing values in a dataframe
 
@@ -103,29 +106,69 @@ def NaCount(df):
     counts = df.isnull().sum()
     percentage = counts / len(df)
 
-    NaDf = DataFrame({"Na_Count": counts, "Na_Percentage": percentage})
-    NaDf['Na_Percentage'] = NaDf['Na_Percentage'].map('{:,.2%}'.format)
+    NaDf = DataFrame({"miss": counts, "miss_percent": percentage})
+    NaDf['miss_percent'] = NaDf['miss_percent'].map('{:,.2%}'.format)
 
     return NaDf
 
 
-def Information():
-    # ad_ _ _ _ _wans functionality
-    # charinfo
-    # numinfo
-    # frequency info
+def char_summary():
     pass
 
 
-def SummaryInfo():
+def num_summary(df):
+    """
+    automatically selects all the numeric columns in a dataframe and provides their summary statistics
+
+    Parameters: 
+    ___________
+
+        df: 
+            Dataframe
+
+    Returns:
+    ________
+
+        Dataframe
+
+    """
+    ndf = df.select_dtypes(include=[np.number])
+    dft = ndf.describe().T
+    nunique = [n for n in ndf.apply(pd.Series.nunique)]
+    nzeros = [((ndf[col] == 0).sum()) for col in ndf]
+    kurt = [x for x in ndf.kurtosis()]
+    skewness = [x for x in ndf.skew()]
+    modes = [x for x in ndf.apply(lambda x: mode(x, axis=None)[0]).iloc[0]]
+    ranges = DataFrame({"1%": ndf.quantile(0.01), "5%": ndf.quantile(
+        0.05), "95%": ndf.quantile(0.95), "99%": ndf.quantile(0.99)})
+    infodf = dft.assign(nunique=nunique, mode=modes, median=ndf.apply(
+        np.median), nzeros=nzeros, kurtosis=kurt, skewness=skewness,
+        iqr=dft['75%'] - dft['25%']).join(na_count(ndf)).join(ranges)
+
+    def Round(x): return np.round(x, 2)
+
+    rnd = ['count', 'mean', 'mode', 'median', 'std', 'min',
+           'max', 'nunique', 'nzeros', 'miss', 'kurtosis', 'skewness',
+           '25%', '50%', '75%', '1%', '95%', '99%', '5%', 'iqr']
+
+    infodf[rnd] = infodf[rnd].apply(Round)
+
+    infodf = infodf[['count', 'mean', 'mode', 'median', 'std', 'min', 'max',
+                     'nunique', 'nzeros', 'kurtosis', 'skewness', 'miss',
+                     'miss_percent', 'iqr', '1%', '5%', '25%', '50%', '75%', '95%',
+                     '99%']]
+    return infodf
+
+
+def summary_info():
     pass
 
 
-def RemoveSpecial():
+def remove_special():
     pass
 
 
-def NaPlot(df, font_scale=3, figsize=(24, 16)):
+def na_plot(df, font_scale=3, figsize=(24, 16)):
     """
     Plots a bargraph of the NaNs in a given dataset
 
@@ -160,7 +203,7 @@ def NaPlot(df, font_scale=3, figsize=(24, 16)):
     plt.show()
 
 
-def PrintAll(df, max_rows=999, max_colwidth=200):
+def print_all(df, max_rows=999, max_colwidth=200):
     """prints the entire dataframe (up to max_rows) and returns to original context
 
     Parameters:

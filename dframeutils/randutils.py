@@ -1,9 +1,9 @@
 import os
 
-__all__ = ["ListFiles"]
+__all__ = ["list_files"]
 
 
-def ListFiles(path, extensions=['.csv']):
+def list_files(path, extensions=['.csv']):
     """
     lists the files in a given path
 
