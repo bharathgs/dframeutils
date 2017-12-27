@@ -5,7 +5,11 @@ python:
 install:
   - pip install .
   - pip install -r requirements.txt
+  - pip install codecov
 
-script: python setup.py install
-# command to run tests
+script: 
+  - python setup.py install
+  - coverage run tests.py
 #script: pytest
+after_success:
+  - codecov
