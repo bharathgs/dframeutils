@@ -1,7 +1,6 @@
 [run]
 source =
     dframeutils
-    tests
 branch = True
 omit =
     dframeutils/cli.py
