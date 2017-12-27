@@ -13,6 +13,8 @@
 
 </p>
 
+simple utility tools for dataframes in Python
+
 **Table of Contents**
 
 * [Installation](#installation)
