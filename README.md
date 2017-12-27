@@ -4,9 +4,13 @@
 ![dframeutils](assets/dframeutils.png)
 
 <p align="center">
-	<img src="https://img.shields.io/badge/stars-1-brightgreen.svg?style=flat"/>
-	<img src="https://img.shields.io/badge/forks-0-brightgreen.svg?style=flat"/>
-	<img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat">
+	<img src="https://img.shields.io/badge/stars-1-blue.svg?style=flat"/>
+	<img src="https://img.shields.io/badge/forks-0-blue.svg?style=flat"/>
+	<img src="https://img.shields.io/badge/contributions-welcome-blue.svg?style=flat">
+	<img src="https://img.shields.io/github/license/mashape/apistatus.svg">
+	<img src="https://img.shields.io/travis/bharathgs/dframeutils.svg">
+	<a href="https://codecov.io/gh/bharathgs/dframeutils"><img src="https://codecov.io/gh/bharathgs/dframeutils/branch/master/graph/badge.svg" /></a>
+
 </p>
 
 **Table of Contents**
