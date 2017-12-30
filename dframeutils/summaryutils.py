@@ -9,7 +9,7 @@ warnings.simplefilter("ignore", RuntimeWarning)
 
 
 __all__ = ["na_count",
-           "na_plot", "extreme_observations",
+           "na_plot", "extreme_observations", "correlation_matrix_plot",
            "df_numerical_summary"]
 
 
@@ -163,11 +163,22 @@ def na_plot(df, font_scale=3, figsize=(24, 16)):
     plt.show()
 
 
+def correlation_matrix_plot(df, style="white", figsize=(12, 10), h_neg=220,
+                            h_pos=10, as_cmap=True, vmax=.3, center=0,
+                            square=True, linewidths=.5, cbar_kws={"shrink": .5}
+                            ):
+
+    ndf = df.select_dtypes(include=[np.number]).corr()
+    mask = np.zeros_like(ndf, dtype=np.bool)
+    mask[np.triu_indices_from(mask)] = True
+    sns.set(style=style)
+    f, ax = plt.subplots(figsize=figsize)
+    cmap = sns.diverging_palette(h_neg=h_neg, h_pos=h_pos, as_cmap=as_cmap)
+    return sns.heatmap(ndf, mask=mask, cmap=cmap, vmax=vmax, center=center,
+                       square=square, linewidths=linewidths, cbar_kws=cbar_kws)
+
+
 def df_categorical_summary():
-    pass
-
-
-def correlation_matrix():
     pass
 
 
