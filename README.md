@@ -20,6 +20,8 @@ simple utility tools for dataframes in Python
 * [Installation](#installation)
 * [License](#license)
 
+dframeutils is the missing utility framework for cleaning, pre-processing, exploring and doing a lot of other common boring tasks with your data. It implements several handy tools for data wrangling and munging that will make your life much easier.
+
 ## Installation
 
 dframeutils is distributed on [PyPI](https://pypi.org) as a universal
